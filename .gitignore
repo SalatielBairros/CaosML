@@ -1,0 +1,23 @@
+# FILEPATH: /home/salatiel/Documents/caos_learn/.gitignore
+
+# Compiled Python files
+*.pyc
+__pycache__/
+
+# Virtual environment
+venv/
+env/
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Other generated files
+*.pyo
+*.pyd
+*.swp
+*~

@@ -120,6 +120,17 @@ class LinearRegression:
         x_bias = np.c_[np.ones((x.shape[0], 1)), x]
         return x_bias.dot(self.theta_param)
     
+    def plot_all_theta_steps(self, x: np.array, y: np.array):
+        to_predict = self.get_edges(x)        
+
+        plt.scatter(x[:, 0], y, color='blue', label='Original data')
+        for _, theta in enumerate(self.gradient_steps):
+            plt.plot(to_predict[:, 0], theta[0] + theta[1] * to_predict[:, 0], "r-", alpha=0.1)
+        plt.xlabel('Feature 1')
+        plt.ylabel('Target Variable')
+        plt.legend()
+        plt.show()
+    
     def __learning_schedule__(self, initial_learning_rate: float, decay: float, iteraction: int) -> float:
         return initial_learning_rate / (1 + decay * iteraction)
 
@@ -138,8 +149,6 @@ class LinearRegression:
 lr = LinearRegression(random_state=42)
 a, b = lr.generate_random_linear_data(100, 1)
 
-print('Least Squares Method')
-print(lr.fit_lsm(a, b, plot_result=True))
+lr.fit_stochastic_gradient_descent(a, b, initial_learning_rate=0.1, nro_iteractions=30, plot_result=False)
 
-print('Gradient Descent')
-print(lr.fit_gradient_descent(a, b, plot_result=True))
+lr.plot_all_theta_steps(a, b)

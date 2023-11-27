@@ -235,3 +235,31 @@ A cada iteração, calculamos a derivada da função de custo e atualizamos o va
 
 ### Gradiente Descendente Estocástico
 
+Buscando reduzir ainda mais a quantidade de vezes que a função de custo é calculada, podemos utilizar o Gradiente Descendente Estocástico. Nesse caso, o cálculo da derivada é feito apenas para uma instância do dataset. A cada iteração, uma instância é selecionada aleatoriamente e a derivada é calculada para ela. O algoritmo é o mesmo, apenas a forma de calcular a derivada é diferente.
+
+```python
+for epoch in range(nro_iteractions):
+    for i in range(size):
+        xi, yi = get_random_instance(size)
+
+        gradients = 2 * xi.T.dot(xi.dot(theta) - yi)
+        learning_rate = self.__learning_schedule__(initial_learning_rate, decay, epoch * i)
+        theta = theta - learning_rate * gradients
+```
+
+Note no código acima que também implementamos uma função para controlar o `learning_rate`. Essa função é chamada de _learning schedule_ e é utilizada para reduzir o `learning_rate` ao longo das iterações. Isso ajuda o algoritmo a convergir mais rápido. Ou seja, inicialmente ele começa com um learning rate mais alto e conforme o resultado se aproxima do ideal através dos resultados das derivadas, os passos vão se tornando menores dentro de uma taxa de decaimento. A implementação utilizada para a função de decaimento é:
+
+```python
+initial_learning_rate / (1 + decay * iteraction)
+```
+
+Essa é uma implementação bastante simples e que adiciona um novo hiperparâmetro que precisa ser ajustado. Existem outras implementações mais complexas e otimizadas, como AdaGrad, RMSProp e Adam. Para regressões lineares, cuja função de custo é convexa, essas implementações não são necessárias. No entanto, para outros algoritmos que podem possuir mais de um ponto mínimo (como redes neurais), essas implementações podem ajudar a encontrar o ponto mínimo global.
+
+### Processando o gradiente em lotes
+
+Uma terceira implementação possível do gradiente é uma variação "intermediária" aos dois apresentados. Ao invés de utilizar a base de dados toda para o treinamento ou apenas uma instância, podemos utilizar um lote de instâncias. Essa implementação é chamada de _mini-batch gradient descent_. O problema dessa abordagem é a inclusão de mais um hiperparâmetro: o tamanho do lote. Esse tamanho precisa ser ajustado para que o algoritmo não fique muito lento (se o lote for muito grande) ou não encontre o ponto mínimo (se o lote for muito pequeno). Mais sobre o Gradiente com regressão linear pode ser encontrado [aqui](https://medium.com/@bruno.dorneles/regress%C3%A3o-linear-com-gradiente-descendente-d3420b0b0ff).
+
+## Conclusão
+
+A regressão linear é um algoritmo bastante simples e que pode ser implementado de diversas formas. No entanto, é importante lembrar que a regressão linear é um algoritmo de aprendizado supervisionado. Ou seja, ele é utilizado para prever valores de uma variável alvo a partir de um conjunto de atributos. As implementações utilizadas aqui, especialmente o gradiente, servem como base para o aprendizado de vários outros modelos.
+

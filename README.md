@@ -6,5 +6,5 @@ This repository implements some machine learning algorithms from scratch using P
 
 - Linear Regression
 
-Each algorithm has its own folder with a README.md file explaining the algorithm and how to run it.
+Each algorithm has its own folder with a README.md file explaining the algorithm and how to run it. All the explanations are written in Portuguese, but the code is written in English to facilitate the comparison with other implementations.
 More information will be added here in the future as more algorithms are implemented.

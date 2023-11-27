@@ -182,3 +182,56 @@ def fit_lsm(self, x: np.array, y: np.array) -> np.array:
 * `.dot` função do `numpy` para multiplicação de matrizes
 
 O valor resultante é um vetor que pode ser multiplicado com qualquer nova coordenada para obter a predição do seu valor alvo ($y$).
+
+## Gradiente Descendente
+
+Por ser uma função convexa, o LSM é suficiente para encontrar o ponto mínimo da função de custo. No entanto, para datasets muito grandes, o LSM pode ser muito custoso computacionalmente. Nesse caso, o Gradiente Descendente pode ser uma alternativa mais eficiente. O custo computacional do LSM está no cálculo da inversa da matriz. Para datasets muito grandes, essa operação pode ser muito custosa. Computacionalmente, o custo da inversa da matriz é de até $O(n^3)$.
+
+A ideia do gradiente é encontrar o ponto mínimo da função de custo através da descida da função. Para isso, é necessário calcular a derivada da função de custo em relação a cada um dos parâmetros. A derivada da função de custo é a taxa de variação da função em um ponto. Para encontrar o ponto mínimo, basta seguir a direção da derivada negativa.
+
+Vamos relembrar a função de custo que utilizamos para o LSM:
+
+$$
+J(\theta) = (y - X\cdot\theta)^T\cdot(y - X\cdot\theta)
+$$
+
+Essa função representa o erro quadrático. Para o gradiente, utilizamos o erro quadrático médio, que é apenas a média da função de custo acima:
+
+$$
+MSE = J(\theta)/m
+$$
+
+Sendo $m$ o número de instâncias do dataset. Para o gradiente, precisamos calcular a derivada da função de custo. Isso envolve o uso da regra da cadeia para derivadas parciais. Para o caso de $n$ parâmetros, teremos $n$ derivadas parciais. A derivada do MSE em relação a $\theta_j$ em forma vetorial é:
+
+$$
+\frac{\partial}{\partial\theta_j}MSE(\theta) = \frac{2}{m}X^T\cdot(X\cdot\theta - y)
+$$
+
+Aqui entra a parte "descendente" do algoritmo. Para encontrar o ponto mínimo, precisamos seguir a direção da derivada negativa. Para isso, precisamos atualizar os valores de $\theta$ de acordo com a derivada. A intensidade dessa alteração é controlada pelo hiperparâmetro $\eta$, chamado de _learning rate_. A formula é:
+
+$$
+\theta^{(next step)} = \theta - \eta\frac{\partial}{\partial\theta_j}MSE(\theta)
+$$
+
+Essa alteração de $\theta$ é feita $n$ vezes, conforme configurado o hiperparâmetro. A cada iteração, o valor de $\theta$ é atualizado. O algoritmo para quando o valor de $\theta$ não mudar mais significativamente ou quando o número de iterações for atingido.
+
+A implementação pode ser realizada da seguinte maneira:
+
+```python
+size = x.shape[0]
+x_bias = np.c_[np.ones((size, 1)), x]
+theta = np.random.randn(x.shape[1] + 1, 1)
+
+for _ in range(nro_iteractions):
+    gradients = 2/size * x_bias.T.dot(x_bias.d(theta) - y)            
+    theta = theta - learning_rate * gradients
+```
+
+Assim como antes, adicionamos o parâmetro de bias em `x`. Após isso, iniciamos os valores de `theta` aleatoriamente. 
+
+> Uma das melhorias nos algoritmos de gradiente está justamente na inicialização aleatória. Algumas vezes técnicas diferentes de inicialização dos valores de `theta` podem ajudar o algoritmo a convergir mais rápido.
+
+A cada iteração, calculamos a derivada da função de custo e atualizamos o valor de `theta` de acordo com o `learning_rate`. O `learning_rate` é um hiperparâmetro que controla a intensidade da alteração de `theta`. Valores muito altos podem fazer com que o algoritmo não encontre o ponto mínimo. Valores muito baixos podem fazer com que o algoritmo demore muito para convergir.
+
+### Gradiente Descendente Estocástico
+

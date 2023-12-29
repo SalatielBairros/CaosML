@@ -86,7 +86,7 @@ def __fit_loss_minimization__(self,
 
 > Para ver com detalhes as implementações das funções chamadas, veja o código fonte do projeto.
 
-### Minimizando _likehood_
+### Maximizando _likehood_
 
 A Máxima Verossimilhança (Maximum Likelihood Estimation - MLE) para a Regressão Logística é um método utilizado para encontrar os valores dos parâmetros do modelo que maximizam a função de verossimilhança. A ideia fundamental por trás da MLE é escolher os parâmetros que tornam mais provável observar os dados que temos.
 

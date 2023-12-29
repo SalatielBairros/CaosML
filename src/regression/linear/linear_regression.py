@@ -144,11 +144,3 @@ class LinearRegression:
         plt.ylabel('Target Variable')
         plt.legend()
         plt.show()
-
-
-lr = LinearRegression(random_state=42)
-a, b = lr.generate_random_linear_data(100, 1)
-
-lr.fit_stochastic_gradient_descent(a, b, initial_learning_rate=0.1, nro_iteractions=30, plot_result=False)
-
-lr.plot_all_theta_steps(a, b)

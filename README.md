@@ -10,7 +10,7 @@ Each algorithm has its own folder with a README.md file explaining the algorithm
 More information will be added here in the future as more algorithms are implemented.
 
 - [Linear Regression](https://github.com/SalatielBairros/CaosML/tree/main/src/regression/linear)
-- [Logistic Regression](https://github.com/SalatielBairros/CaosML/tree/main/src/classification/logistic)https://github.com/SalatielBairros/CaosML/tree/main/src/classification/logistic
+- [Logistic Regression](https://github.com/SalatielBairros/CaosML/tree/main/src/classification/logistic)
 
 ### Current implementing:
 

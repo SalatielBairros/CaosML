@@ -13,13 +13,14 @@ The name "caos" is because all learning is caotic. You'll have joy and frustrati
 Each algorithm has its own folder with a README.md file explaining the algorithm and how to run it. All the explanations are written in Portuguese, but the code is written in English to facilitate the comparison with other implementations.
 More information will be added here in the future as more algorithms are implemented.
 
-- [Linear Regression](https://github.com/SalatielBairros/CaosML/tree/main/src/regression/linear)
-- [Logistic Regression](https://github.com/SalatielBairros/CaosML/tree/main/src/classification/logistic)
+- [Linear Regression](https://github.com/SalatielBairros/CaosML/tree/main/src/linear_model/linear_regression)
+- [Logistic Regression](https://github.com/SalatielBairros/CaosML/tree/main/src/linear_model/logistic_regression)
+- [KNN](https://github.com/SalatielBairros/CaosML/tree/main/src/neighbors/knn)
 
 ### Current implementing:
 
-- KNN
+- Decision Tree
 
 ### Next
 
-- Decision Tree
+- Random Forest

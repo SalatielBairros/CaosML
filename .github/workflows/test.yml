@@ -1,4 +1,5 @@
 name: Unit tests execution
+run-name: Unit Test Execution by @${{ github.actor }}
 
 on:
   push:

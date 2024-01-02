@@ -1,38 +1,56 @@
-import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from classification.logistic.logistic_regression import LogisticRegression
-from sklearn.linear_model import LogisticRegression as SKLogisticRegression
-import time
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import Normalizer
+from sklearn.metrics import accuracy_score
+from sklearn.neighbors import KNeighborsClassifier
+from neighbors.knn.knn import KNN
 
-dataset = pd.read_csv('https://raw.githubusercontent.com/animesh-agarwal/Machine-Learning/master/LogisticRegression/data/marks.txt', 
-                      header=None, names=['Exam 1', 'Exam 2', 'Admitted'])
+SEED = 42
+np.random.seed(SEED)
 
-X = dataset[['Exam 1', 'Exam 2']].copy()
-y = dataset['Admitted'].copy()
+iris = datasets.load_iris()
 
-labels, index = np.unique(dataset["Admitted"], return_inverse=True)
-plt.scatter(dataset['Exam 1'], dataset['Exam 2'], marker='o', c=index)
-plt.show()
+x = iris['data']
+y = iris['target']
 
-lr = LogisticRegression(random_state=42)
-print("Training with loss_minimization:")
-start_time = time.time()
-result = (lr
-      .fit(X, y, learning_rate=0.001, epochs=1000000, calculate_cost=False, save_steps=False, random_inicialization=True, method='loss_minimization')
-      .accuracy(X, y))
-print(f'Result: {result} in {str(time.time() - start_time)} seconds')
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=SEED)
 
-print("\n Training with maximum_likehood")
-start_time = time.time()
-result = (lr
-      .fit(X, y, learning_rate=0.001, epochs=1000000, calculate_cost=False, save_steps=False, random_inicialization=True, method='maximum_likehood')
-      .accuracy(X, y))
-print(f'Result: {result} in {str(time.time() - start_time)} seconds')
+x_train = np.asarray(x_train)
+x_test = np.asarray(x_test)
+y_train = np.asarray(y_train)
+y_test  = np.asarray(y_test)
 
-print("\n Training with SKLearn")
-start_time = time.time()
-sk_lr = SKLogisticRegression(penalty=None, random_state=42, max_iter=1000000)
-sk_lr.fit(X, y)
-score = sk_lr.score(X, y)
-print(f'Result: {result} in {str(time.time() - start_time)} seconds')
+scaler = Normalizer().fit(x_train)
+normalized_x_train = scaler.transform(x_train)
+normalized_x_test = scaler.transform(x_test)
+
+sk_model = KNeighborsClassifier(n_neighbors=5, algorithm='brute')
+sk_model.fit(x_train, y_train)
+
+sk_train_predictions = sk_model.predict(x_train)
+sk_test_predictions = sk_model.predict(x_test)
+
+sk_train_score = accuracy_score(y_train, sk_train_predictions)
+sk_test_score = accuracy_score(y_test, sk_test_predictions)
+
+print(f'[SKLEARN] Train score: {sk_train_score}')
+print(f'[SKLEARN] Test score: {sk_test_score}')
+
+knn_model = KNN(k=5)
+train_predictions = knn_model.fit_predict(x_train, y_train)
+train_score = accuracy_score(y_train, train_predictions)
+test_predictions = knn_model.predict(x_test)
+test_score = accuracy_score(y_test, test_predictions)
+
+print(f'[LOCAL EUCLIDEAN] Train score: {train_score}')
+print(f'[LOCAL EUCLIDEAN] Test score: {test_score}')
+
+knn_model = KNN(k=5, distance='manhattan')
+train_predictions = knn_model.fit_predict(x_train, y_train)
+train_score = accuracy_score(y_train, train_predictions)
+test_predictions = knn_model.predict(x_test)
+test_score = accuracy_score(y_test, test_predictions)
+
+print(f'[LOCAL MANHATTAN] Train score: {train_score}')
+print(f'[LOCAL MANHATTAN] Test score: {test_score}')

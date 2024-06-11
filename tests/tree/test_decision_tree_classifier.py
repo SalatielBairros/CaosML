@@ -13,7 +13,7 @@ class TestDecisionTreeClassifier(TestCase):
         expected = entropy(total_count, base=2)
 
         classifier = DecisionTreeClassifier()
-        actual = classifier.get_entropy(y_labels)
+        actual = classifier.__get_entropy__(y_labels)
 
         assert round(expected, 4) == round(actual, 4)
         

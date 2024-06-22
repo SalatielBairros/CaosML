@@ -186,7 +186,3 @@ Estude variantes da regressão logística que incorporam termos de regularizaç�
 Explore a regressão logística multinomial para problemas de classificação com mais de duas classes. Isso amplia a aplicabilidade do modelo.
 
 Espero que este projeto tenha sido alguma ajuda no entendimento da Regressão Logística.
-
-----
-
-<sup><sup>1. Conclusão (e apenas ela) escrita com o auxílio do Chat GPT 3</sup></sup>

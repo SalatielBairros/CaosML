@@ -76,7 +76,7 @@ O índice Gini é computacionalmente mais eficiente, pois envolve apenas operaç
 
 ### Ganho de informação
 
-O ganho de informação é a diferença entre a entropia inicial ($H(S)$) e a soma das entropias de uma divisão realizada nos dados ($H(S_{left}) + H(S_{right})$), balanceados pela quantidade de _rows_. O objetivo é conseguir saber o ganho que tal divisão nos dados trará na redução da entropia, que é o objetivo da Árvore de Decisão. A fórmula é:
+O ganho de informação é a diferença entre a entropia inicial ($H(S)$) e a soma das entropias de uma divisão realizada nos dados, balanceados pela quantidade de _rows_. O objetivo é conseguir saber o ganho que tal divisão nos dados trará na redução da entropia, que é o objetivo da Árvore de Decisão. A fórmula é:
 
 $GainRatio(S) = H(S) - [(H(S_{left}) * n_{left}/n) + (H(S_{right}) * n_{right}/n)]$
 

@@ -16,6 +16,7 @@ More information will be added here in the future as more algorithms are impleme
 - [Linear Regression](https://github.com/SalatielBairros/CaosML/tree/main/src/linear_model/linear_regression)
 - [Logistic Regression](https://github.com/SalatielBairros/CaosML/tree/main/src/linear_model/logistic_regression)
 - [KNN](https://github.com/SalatielBairros/CaosML/tree/main/src/neighbors/knn)
+- [DecisionTreeClassifier](https://github.com/SalatielBairros/CaosML/tree/main/src/tree)
 
 ### Current implementing:
 

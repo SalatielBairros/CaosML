@@ -20,8 +20,8 @@ More information will be added here in the future as more algorithms are impleme
 
 ### Current implementing:
 
-- Decision Tree
+- Random Forest
 
 ### Next
 
-- Random Forest
+- K-Means

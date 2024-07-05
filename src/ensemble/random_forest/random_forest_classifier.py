@@ -30,7 +30,11 @@ class RandomForestClasifier:
         sample_indexes = list(range(training_data_size))
         selected_rows_indexes = np.random.choice(sample_indexes, training_data_size)
         n_features_to_select = int(training_data_n_features * self.max_features)
-        selected_columns_indexes = np.random.permutation(training_data_n_features)[:n_features_to_select]
+    
+        if n_features_to_select >= 2:
+            selected_columns_indexes = np.random.permutation(training_data_n_features)[:n_features_to_select]
+        else:
+            selected_columns_indexes = np.random.permutation(training_data_n_features)
 
         return selected_rows_indexes, selected_columns_indexes
     
@@ -55,11 +59,11 @@ class RandomForestClasifier:
 
     def out_of_bag_score(self, X: np.array, y: np.array):
         all_predictions = []
+        idx_group = defaultdict(list)
+
         for estimator in self.estimators:
             predictions = estimator.out_of_bag_predictions(X)
             all_predictions.append(predictions)
-
-        idx_group = defaultdict(list)
 
         for predictions_list in all_predictions:
             for idx, prediction in predictions_list:
@@ -73,8 +77,22 @@ class RandomForestClasifier:
 
         return np.mean(np.array(result)[:,2])
 
-    def predict(self, X):
-        pass
+    def predict(self, X: np.array):
+        predictions = []
+        response = []
+        size = X.shape[0]
+
+        for estimator in self.estimators:
+            prediction = estimator.predict(X)
+            predictions.append(prediction)
+
+        for estimator_prediction in np.array(predictions).T:
+            counter = Counter(estimator_prediction)            
+            prediction, frequency = counter.most_common(1)[0]
+            prob = frequency / size
+            response.append((prediction, prob))
+
+        return response
 
 class TreeEstimator:
     def __init__(self, criterion: str, min_estimator_size: int, max_depth: int) -> None:

@@ -17,11 +17,12 @@ More information will be added here in the future as more algorithms are impleme
 - [Logistic Regression](https://github.com/SalatielBairros/CaosML/tree/main/src/linear_model/logistic_regression)
 - [KNN](https://github.com/SalatielBairros/CaosML/tree/main/src/neighbors/knn)
 - [DecisionTreeClassifier](https://github.com/SalatielBairros/CaosML/tree/main/src/tree)
+- [RandomForestClassifier](https://github.com/SalatielBairros/CaosML/tree/main/src/ensemble/random_forest)
 
 ### Current implementing:
 
-- Random Forest
+- K-Means
 
 ### Next
 
-- K-Means
+- SVM

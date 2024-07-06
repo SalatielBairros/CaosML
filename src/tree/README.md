@@ -78,7 +78,7 @@ O índice Gini é computacionalmente mais eficiente, pois envolve apenas operaç
 
 O ganho de informação é a diferença entre a entropia inicial ($H(S)$) e a soma das entropias de uma divisão realizada nos dados, balanceados pela quantidade de _rows_. O objetivo é conseguir saber o ganho que tal divisão nos dados trará na redução da entropia, que é o objetivo da Árvore de Decisão. A fórmula é:
 
-$GainRatio(S) = H(S) - [(H(S_{left}) * n_{left}/n) + (H(S_{right}) * n_{right}/n)]$
+$InformationGain(S) = H(S) - [(H(S_{left}) * n_{left}/n) + (H(S_{right}) * n_{right}/n)]$
 
 > Existem formas de representar essa fórmula melhor, mas essa fica o mais próximo do que efetivamente está implementado no código do projeto.
 
@@ -144,3 +144,14 @@ def __predict_single(self, x: np.array, node):
 ```
 
 > Lembrando que todas as implementações realizadas aqui seguem o objetivo principal do projeto: **facilitar a didática e a leitura do código**. Com isso, funções complexas de otimização ou alterações no código buscando a melhor performance na linguagem não foram realizadas. Para uma implementação mais complexa e a variação dela para regressão, veja a biblioteca Scikit-learn.
+
+## Para saber mais
+
+Alguns tópicos não foram implementados aqui e podem ser explorados em melhorias futuras ou para quem quiser pesquisar mais:
+
+* _Prune_ ou "podagem", como o nome diz, é a remoção de partes da árvore que não contribuem significativamente para a precisão.
+* _Ajuste fino dos parâmetros_, ou seja, criar mais parâmetros de controle, como um valor mínimo de diminuição da entropia para que um novo nó seja criado.
+* Melhorar e normalizar o algoritmo de ganho de informação (Gain Ratio).
+* Implementar `feature_importance`.
+* Implementar visualização da árvore.
+* Criar os testes unitáros.
